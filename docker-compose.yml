@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:9.5
+    environment:
+      POSTGRES_DB: pessoa_cadastro
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+    ports:
+      - "5433:5433"
+  app:
+    build: .
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/pessoa_cadastro
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: admin
+    ports:
+      - "8080:8080"
